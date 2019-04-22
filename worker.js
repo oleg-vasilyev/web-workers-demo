@@ -1,10 +1,6 @@
-performComplexOperation = (name) => {
-	for (let i = 0; i < 1e8; i++) {
-		Math.pow(Math.random(), Math.random());
-	}
-	return `${name} done`;
-}
+onmessage = e => {
+	importScripts(e.data.funcURL);
 
-self.addEventListener('message', (e) => {
-	self.postMessage(performComplexOperation(e.data));
-});
+	const message = eval(`${e.data.funcName}('${e.data.name}');`);
+	postMessage(message);
+};
